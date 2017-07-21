@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<title>Just test it</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400i,700,700i">
+	<link rel="stylesheet" href="https://alexeyraspopov.github.io/long-live-flux/node_modules/shower-ribbon/styles/screen-16x10.css">
+	<link rel="stylesheet" href="FiraCode/distr/fira_code.css">
+	<link rel="stylesheet" href="custom.css">
+</head>
+<body class="shower list">
+	<header class="caption">
+		<h1>Просто напиши тест</h1>
+		<p><a href="https://alexeyraspopov.github.io/">Alexey Raspopov</a>, <a href="https://datarobot.com/">DataRobot</a>.</p>
+	</header>
+
+	<section class="slide">
+		<h2 class="title">Писать тесты это <br>не <span class="accent">больно</span></h2>
+	</section>
+
+	<section class="slide darkside">
+		<h2 class="title">Писать тесты это <br>не больно<span class="accent">?</span></h2>
+	</section>
+
+	<section class="slide">
+		<ul>
+			<li>Разработчик в <a href="https://datarobot.com/">DataRobot</a></li>
+			<li>Делаю разные штуки, делюсь на <a href="https://github.com/alexeyraspopov">Гитхабе</a></li>
+		</ul>
+	</section>
+
+	<section class="slide">
+		<p class="title">Вы уверены в <em class="accent">работоспособности</em> вашего кода?</p>
+	</section>
+
+	<section class="slide">
+		<p class="title">Какие ваши <em class="accent">доказательства</em>?</p>
+	</section>
+
+	<section class="slide darkside">
+		<p>Тесты это <em class="accent">дёшево</em>. У вас просто нет достаточно веcкой причины не писать их.</p>
+		<p class="next">Настройка окружения это <em class="accent">просто</em>. Проще чем настроить вебпак.</p>
+		<p class="next">Никакого rocket science. Поговорим о том как <em class="accent">быстро</em> начать и чтобы это приносило пользу.</p>
+	</section>
+
+	<section class="slide darkside">
+		<p>JavaScript очень долго использовался для несущественных модификаций веб-страниц. Инструменты для тестирования развивались медленно и не получали нужного внимания.</p>
+
+		<p class="next">Сейчас можно с уверенностью сказать, что проблема отсутствия и сложности инструментов устранена.</p>
+	</section>
+
+	<section class="slide">
+		<ul>
+			<li>Проверка работоспособоности элементов в изоляции и конфигурируемом контексте</li>
+			<li class="next">Позволяют безопасно рефакторить готовые решения</li>
+			<li class="next">Отличное место для описания примеров использования модуля</li>
+		</ul>
+	</section>
+
+	<section class="slide">
+		<ol>
+			<li>QUnit</li>
+			<li>Mocha</li>
+			<li>Karma</li>
+		</ol>
+	</section>
+
+	<section class="slide">
+		<ul>
+			<li>Сложная настройка</li>
+			<li>Несовместимость с другими инструментами</li>
+			<li>Не предлагают решений для моков</li>
+		</ul>
+	</section>
+
+	<section class="slide blueprint">
+		<p><code>npm install <span class="accent">jest</span></code></p>
+		<p class="next fade"><code>npm install <span class="accent">babel-jest</span></code></p>
+	</section>
+
+	<section class="slide blueprint">
+		<pre><code class="comment">/* package.json */</code></pre>
+		<pre>
+			<code>"scripts": {</code>
+			<code>  "test": "<span class="accent">jest</span> --coverage"</code>
+			<code>}</code>
+		</pre>
+	</section>
+
+	<section class="slide">
+		<ul>
+			<li>Не нуждается в настройке</li>
+			<li>Быстро интегрируется с бабелем или вебпаком</li>
+			<li>Предлагает достаточно удобные решения для моков</li>
+		</ul>
+	</section>
+
+	<section class="slide blueprint">
+		<pre>
+			<code>/core</code>
+			<div class="next fade">
+				<code>  /__mocks__</code>
+				<code>    HTTPClient.js</code>
+			</div>
+			<code>  <span class="accent-2">HTTPClient</span>.js</code>
+			<code>/user</code>
+			<div class="next fade">
+				<code>  /__tests__</code>
+				<code>    UserAPI-test.js</code>
+			</div>
+			<code>  <span class="accent-2">UserAPI</span>.js</code>
+		</pre>
+	</section>
+
+	<section class="slide blueprint">
+		<pre>
+			<code class="comment">/* core/UserAPI.js */</code>
+			<code><span class="accent">import</span> HTTPClient <span class="accent">from</span> 'core/HTTPClient';</code>
+			<code><span class="accent">export</span> <span class="accent">default</span> <span class="accent">class</span> Users {</code>
+			<code>  <span class="accent-2">create</span>(data) {</code>
+			<code>    <span class="accent">return</span> HTTPClient.post(<span class="accent-2">...</span>);</code>
+			<code>  }</code>
+			<code>  <span class="accent-2">retrieve</span>(query) {</code>
+			<code>    <span class="accent">return</span> HTTPClient.get(<span class="accent-2">...</span>);</code>
+			<code>  }</code>
+			<code>}</code>
+		</pre>
+	</section>
+
+	<section class="slide blueprint">
+		<pre>
+			<code class="comment">/* core/__mocks__/HTTPClient.js */</code>
+			<code><span class="accent">export default</span> {</code>
+			<code>  <span class="accent-2">get</span>: jest.fn(),</code>
+			<code>  <span class="accent-2">post</span>: jest.fn(),</code>
+			<code>};</code>
+		</pre>
+	</section>
+
+	<section class="slide blueprint">
+		<pre style="font-size: 90%">
+			<code class="comment">/* user/__tests__/UserAPI-test.js */</code>
+			<code>jest.<span class="accent-2">mock</span>('core/HTTPClient');</code>
+			<code><span class="accent">import</span> HTTPClient <span class="accent">from</span> 'core/HTTPClient';</code>
+			<code><span class="accent">import</span> Users <span class="accent">from</span> 'user/UserAPI';</code>
+			<div class="next fade">
+				<code><span class="accent-2">describe</span>('Users API', () => {</code>
+				<code>  <span class="accent-2">it</span>('should retrieve users', <span class="accent">async</span> () => {</code>
+				<div class="next fade">
+					<code>    HTTPClient.get.<span class="accent-2">mockReturnValue</span>(mockData);</code>
+					<code>    <span class="accent">const</span> usersAPI = <span class="accent">new</span> Users();</code>
+				</div>
+				<div class="next fade">
+					<code>    <span class="accent">const</span> users = <span class="accent">await</span> usersAPI.retrieve();</code>
+					<code>    <span class="accent-2">expect</span>(users).<span class="accent-2">toEqual</span>(mockData);</code>
+				</div>
+				<code>  });</code>
+				<code>});</code>
+			</div>
+		</pre>
+	</section>
+
+	<section class="slide">
+		<ul>
+			<li>Модульных тестов недостаточно</li>
+			<li>Помимо UI всегда есть серверая часть</li>
+			<li>Необходима автоматизация тестирования со стороны пользователя</li>
+		</ul>
+	</section>
+
+	<section class="slide blueprint">
+		<p><code>npm install <span class="accent">protractor</span></code></p>
+	</section>
+
+	<section class="slide">
+		<ul>
+			<li>Удобная надстройка над Selenium</li>
+			<li>Дополнительные плюшки для Angular</li>
+			<li>Интеграция с Sauce Labs</li>
+		</ul>
+	</section>
+
+	<section class="slide blueprint">
+		<pre><code class="comment">/* protractor.config.js */</code></pre>
+
+		<pre>
+			<code>exports.<span class="accent">config</span> = {</code>
+
+			<div class="next fade">
+				<code>  <span class="accent-2">baseUrl</span>: '&lt;project url&gt;',</code>
+				<code>  <span class="accent-2">specs</span>: ['specs/*.spec.js'],</code>
+			</div>
+
+			<div class="next fade">
+				<code class="comment">  /* In case you don't want to mess with Selenium */</code>
+				<code>  <span class="accent-2">directConnect</span>: true,</code>
+			</div>
+
+			<div class="next fade">
+				<code>  <span class="accent-2">onPrepare</span>() {</code>
+				<code class="comment">    /* Where we're going, we don't need Angular */</code>
+				<code>    <span class="accent">browser</span>.ignoreSynchronization = true;</code>
+				<code>  },</code>
+			</div>
+
+			<code>};</code>
+		</pre>
+	</section>
+
+	<section class="slide blueprint">
+		<pre><code class="comment">/* package.json */</code></pre>
+		<pre>
+			<code>"scripts": {</code>
+			<code>  "test-e2e": "<span class="accent">protractor</span> protractor.config.js"</code>
+			<code>}</code>
+		</pre>
+	</section>
+
+	<section class="slide">
+		<p class="title"><a href="https://martinfowler.com/bliki/PageObject.html">Page Object</a> Pattern</p>
+	</section>
+
+	<section class="slide">
+		<p>When you write tests against a web page, you need <em class="accent">to refer to elements within that web page</em> in order to click links and determine what's displayed. <span class="next">However, if you write tests that <em class="accent">manipulate the HTML elements directly</em> your tests will be <em class="accent">brittle to changes in the UI</em>.</span></p>
+	</section>
+
+	<section class="slide">
+		<p>A page object wraps an HTML page, or fragment, <em class="accent">with an application-specific API</em>, allowing you to manipulate page elements without digging around in the HTML.</p>
+	</section>
+
+	<section class="slide darkside">
+		<p>Код <code>element.all(by.css('.label'))</code> о манипуляции <em class="accent">HTML элементами</em>.</p>
+		<p>Код <code>getTodos()</code> о манипуляции <em class="accent">данными приложения</em>.</p>
+	</section>
+
+	<section class="slide blueprint">
+		<pre style="font-size: 90%">
+			<code><span class="accent">export default class</span> TodosPage {</code>
+			<code>  <span class="accent-2">constructor</span>() {</code>
+			<code>    <span class="accent">this</span>.newTodoInput = by.css('.new-todo');</code>
+			<code>    <span class="accent">this</span>.todos = by.css('.todo-list .view label');</code>
+			<code>  }</code>
+			<code>  <span class="accent-2">getTodos</span>() {</code>
+			<code>    <span class="accent">return</span> element.all(this.todos).map(e => e.getText());</code>
+			<code>  }</code>
+			<code>  <span class="accent-2">createTodo</span>(text) {</code>
+			<code>    <span class="accent">return</span> element(this.newTodoInput)</code>
+			<code>      .sendKeys(text, protractor.Key.ENTER);</code>
+			<code>  }</code>
+			<code>}</code>
+		</pre>
+	</section>
+
+	<section class="slide blueprint">
+		<pre>
+			<code><span class="accent">import</span> TodosPage <span class="accent">from</span> './Todos.object';</code>
+			<code><span class="accent-2">describe</span>('Todos', () => {</code>
+			<code>  <span class="accent">const</span> todos = <span class="accent">new</span> TodosPage();</code>
+			<code>  <span class="accent-2">it</span>('should add new todo to the list', <span class="accent">async</span> () => {</code>
+			<code>    <span class="accent">await</span> browser.get('/');</code>
+			<code>    <span class="accent">await</span> todos.createTodo('Send an email');</code>
+			<code>    <span class="accent-2">expect</span>(todos.getTodos()).toContain('Send an email');</code>
+			<code>  });</code>
+			<code>});</code>
+		</pre>
+	</section>
+
+	<section class="slide darkside" id="contacts">
+		<h2 class="title">Лайкос, шейр, подписон</h2>
+
+		<ul>
+			<li><a href="https://twitter.com/alexeyraspopov" class="contact"><span class="accent">twitter.com</span>/alexeyraspopov</a></li>
+			<li><a href="https://github.com/alexeyraspopov" class="contact"><span class="accent">github.com</span>/alexeyraspopov</a></li>
+		</ul>
+
+		<p>Ссылка на это слайды &mdash; <a href="https://alexeyraspopov.github.io/just-test-it">alexeyraspopov.github.io/just-test-it</a></p>
+	</section>
+
+	<section class="slide">
+		<p class="title">Спасибо за внимание</p>
+	</section>
+
+	<footer class="badge">
+		<a href="https://github.com/shower/shower">Powered by Shower</a>
+	</footer>
+
+  <script src="https://alexeyraspopov.github.io/long-live-flux/node_modules/shower-core/shower.min.js"></script>
+	<!-- Copyright © 2017 Alexey Raspopov. -->
+</body>
+</html>
