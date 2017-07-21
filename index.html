@@ -139,6 +139,13 @@
 		</pre>
 	</section>
 
+	<section class="slide">
+		<ul>
+			<li>I/O это <em class="accent">дорого и долго</em>. Это не то, что мы хотим тестировать</li>
+			<li class="next">Часто, <em class="accent">ошибочно</em>, разработчики пишут тесты на то, что протестированно другими</li>
+		</ul>
+	</section>
+
 	<section class="slide blueprint">
 		<pre style="font-size: 90%">
 			<code class="comment">/* user/__tests__/UserAPI-test.js */</code>
@@ -164,9 +171,9 @@
 
 	<section class="slide">
 		<ul>
-			<li>Модульных тестов недостаточно</li>
-			<li>Помимо UI всегда есть серверая часть</li>
-			<li>Необходима автоматизация тестирования со стороны пользователя</li>
+			<li>Модульных тестов <em class="accent">недостаточно</em></li>
+			<li class="next">Помимо UI всегда есть серверая часть</li>
+			<li class="next">Необходима автоматизация тестирования <em class="accent">со стороны пользователя</em></li>
 		</ul>
 	</section>
 
@@ -183,9 +190,9 @@
 	</section>
 
 	<section class="slide blueprint">
-		<pre><code class="comment">/* protractor.config.js */</code></pre>
+		<pre style="font-size: 95%"><code class="comment">/* protractor.config.js */</code></pre>
 
-		<pre>
+		<pre style="font-size: 95%">
 			<code>exports.<span class="accent">config</span> = {</code>
 
 			<div class="next fade">
@@ -200,8 +207,11 @@
 
 			<div class="next fade">
 				<code>  <span class="accent-2">onPrepare</span>() {</code>
-				<code class="comment">    /* Where we're going, we don't need Angular */</code>
-				<code>    <span class="accent">browser</span>.ignoreSynchronization = true;</code>
+				<code>    <span class="accent-2">require</span>('babel-register');</code>
+				<div class="next fade">
+					<code class="comment">    /* Where we're going, we don't need Angular */</code>
+					<code>    <span class="accent">browser</span>.ignoreSynchronization = true;</code>
+				</div>
 				<code>  },</code>
 			</div>
 
@@ -232,7 +242,7 @@
 
 	<section class="slide darkside">
 		<p>Код <code>element.all(by.css('.label'))</code> о манипуляции <em class="accent">HTML элементами</em>.</p>
-		<p>Код <code>getTodos()</code> о манипуляции <em class="accent">данными приложения</em>.</p>
+		<p class="next">Код <code>getTodos()</code> о манипуляции <em class="accent">данными приложения</em>.</p>
 	</section>
 
 	<section class="slide blueprint">
@@ -261,10 +271,18 @@
 			<code>  <span class="accent-2">it</span>('should add new todo to the list', <span class="accent">async</span> () => {</code>
 			<code>    <span class="accent">await</span> browser.get('/');</code>
 			<code>    <span class="accent">await</span> todos.createTodo('Send an email');</code>
-			<code>    <span class="accent-2">expect</span>(todos.getTodos()).toContain('Send an email');</code>
+			<code>    <span class="accent-2">expect</span>(todos.getTodos()).<span class="accent-2">toContain</span>('Send an email');</code>
 			<code>  });</code>
 			<code>});</code>
 		</pre>
+	</section>
+
+	<section class="slide">
+		<ul>
+			<li>Переиспользуются в разных тестах, на разных страницах</li>
+			<li class="next">В зависимости от контекста, могут быть использованны с разными входными данными</li>
+			<li class="next">Не обладают логикой &mdash; только детали взаимодействия с HTML-элементами</li>
+		</ul>
 	</section>
 
 	<section class="slide darkside" id="contacts">
